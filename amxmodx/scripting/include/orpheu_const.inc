@@ -13,7 +13,7 @@
  #pragma library orpheu
 #endif
 
-const OrpheuFunction:OrpheuInvalidFunction = OrpheuFunction:0
+const OrpheuFunction:OrpheuInvalidFunction = OrpheuFunction:0;
 
 enum OrpheuHookReturn
 {
