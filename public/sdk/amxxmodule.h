@@ -19,7 +19,7 @@
 // config
 #include "moduleconfig.h"
 
-#include <stddef.h> // size_t
+#include <cstddef> // size_t
 // metamod include files
 #ifdef USE_METAMOD
 #include <extdll.h>
@@ -78,7 +78,7 @@ struct amxx_module_info_s
 // Copyright (c) ITB CompuPhase, 1997-2005
 
 #if defined HAVE_STDINT_H
-  #include <stdint.h>
+  #include <cstdint>
 #else
   #if defined __LCC__ || defined __DMC__ || defined LINUX || defined __APPLE__
     #if defined HAVE_INTTYPES_H

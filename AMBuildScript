@@ -109,7 +109,7 @@ class OrpheuConfig(object):
       ]
       cfg.cxxflags += [
         '-Wno-invalid-offsetof',
-        #'-std=c++11',
+        '-std=c++11',
       ]
 
       cfg.linkflags += ['-m32']

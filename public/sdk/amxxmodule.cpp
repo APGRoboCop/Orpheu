@@ -12,11 +12,11 @@
 // Module SDK
 //
 
-#include <string.h>
+#include <cstring>
 #include <new>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdarg>
+#include <cstdlib>
+#include <cstdio>
 #include "amxxmodule.h"
 
 /************* METAMOD SUPPORT *************/
@@ -3008,9 +3008,6 @@ void operator delete[](void * ptr) {
 #include <extdll.h>
 #include "sdk_util.h"
 #include <cbase.h>
-
-#include <string.h>			// for strncpy(), etc
-
 #include "osdep.h"			// win32 vsnprintf, etc
 
 char* UTIL_VarArgs( char *format, ... )

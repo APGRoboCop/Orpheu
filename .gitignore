@@ -13,6 +13,7 @@
 
 # Build results
 build/
+msvc12/.vs
 [Dd]ebug/
 [Rr]elease/
 *_i.c

@@ -25,7 +25,7 @@ C_OPT_FLAGS     = -DNDEBUG -O2 -fomit-frame-pointer -pipe -mmmx -msse -msse2 -ma
 C_DEBUG_FLAGS   = -D_DEBUG -DDEBUG -g -ggdb3
 C_GCC4_FLAGS    = -fvisibility=hidden
 CPP_GCC4_FLAGS  = -fvisibility-inlines-hidden
-CPP             = clang
+CPP             = gcc
 CPP_OSX         = clang
 
 LINK =
@@ -57,7 +57,7 @@ endif
 LINK += -m32 -lm -ldl
 
 CFLAGS += -DORPHEU_BUILD -DORPHEU_USE_VERSIONLIB -DPAWN_CELL_SIZE=32 -DJIT -DASM32 -DHAVE_STDINT_H -fno-strict-aliasing -m32 -Wall -Werror -Wno-uninitialized -Wno-unused -Wno-switch
-CPPFLAGS += -Wno-invalid-offsetof -fno-exceptions -fno-rtti# -std=c++11
+CPPFLAGS += -Wno-invalid-offsetof -fno-exceptions -fno-rtti -std=c++11
 
 BINARY = $(PROJECT)$(LIB_SUFFIX).$(LIB_EXT)
 
