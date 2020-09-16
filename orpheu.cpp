@@ -1446,8 +1446,9 @@ void addLibraries() // IM THE KING OF EXAMPLE COPYPASTING!
 					size_t length = strlen(process);
 					size_t i = length;
 
-					while (process[--i] != '.') {}; process[i] = '\0';
-					while (process[--i] != '\\') {};
+					while (process[--i] != '.') {}
+					process[i] = '\0';
+					while (process[--i] != '\\') {}
 
 					strcpy(library, &process[i + 1]);
 

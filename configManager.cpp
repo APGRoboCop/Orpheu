@@ -1258,7 +1258,7 @@ void ConfigManager::parseMemoryObject(json_t *root)
 							}
 
 							memoryStructure->type = MemTypeSignature;
-							memoryStructure->signatureLength =  json_array_size(value);;
+							memoryStructure->signatureLength =  json_array_size(value);
 							memoryStructure->displacement = displacementValue;
 
 							byte* signature = new byte[json_array_size(value)];

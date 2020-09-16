@@ -230,7 +230,7 @@ static uint32_t hashlittle(const void *key, size_t length, uint32_t initval)
       a += k[0];
       b += k[1];
       c += k[2];
-      mix(a,b,c);
+      mix(a,b,c)
       length -= 12;
       k += 3;
     }
@@ -296,7 +296,7 @@ static uint32_t hashlittle(const void *key, size_t length, uint32_t initval)
       a += k[0] + ((uint32_t)k[1]<<16);
       b += k[2] + ((uint32_t)k[3]<<16);
       c += k[4] + ((uint32_t)k[5]<<16);
-      mix(a,b,c);
+      mix(a,b,c)
       length -= 12;
       k += 6;
     }
@@ -351,7 +351,7 @@ static uint32_t hashlittle(const void *key, size_t length, uint32_t initval)
       c += (uint32_t)k[9]<<8;
       c += (uint32_t)k[10]<<16;
       c += (uint32_t)k[11]<<24;
-      mix(a,b,c);
+      mix(a,b,c)
       length -= 12;
       k += 12;
     }
@@ -376,6 +376,6 @@ static uint32_t hashlittle(const void *key, size_t length, uint32_t initval)
     }
   }
 
-  final(a,b,c);
+  final(a,b,c)
   return c;
 }

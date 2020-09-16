@@ -241,7 +241,7 @@ cell Function::call(AMX* amx, cell* params)
 	{
 		call address;
 		mov returnValue, eax;
-	};
+	}
 #else
 	asm ("call *%0"::"m"(address));
 	asm ("mov %%eax , %0":"=r"(returnValue));
@@ -305,7 +305,7 @@ long Function::callOriginal()
 	{
 		call address;
 		mov returnValue, eax;
-	};
+	}
 
 #else
 	asm ("call *%0"::"m"(address));
