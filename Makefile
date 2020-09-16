@@ -5,8 +5,8 @@
 ### EDIT THESE PATHS FOR YOUR OWN SETUP ###
 ###########################################
 
-HLSDK   = ../hlsdk
-MM_ROOT = ../metamod-am/metamod
+HLSDK   = ../amxmodx/hlsdk-bu
+MM_ROOT = ../amxmodx/metamod-bu/metamod
 
 #####################################
 ### EDIT BELOW FOR OTHER PROJECTS ###
@@ -21,11 +21,11 @@ OBJECTS = public/sdk/amxxmodule.cpp orpheu.cpp memoryUtil.cpp memoryStructureMan
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###
 ##############################################
 
-C_OPT_FLAGS     = -DNDEBUG -O2 -funroll-loops -fomit-frame-pointer -pipe 
+C_OPT_FLAGS     = -DNDEBUG -O2 -fomit-frame-pointer -pipe -mmmx -msse -msse2 -march=i686 -mtune=generic
 C_DEBUG_FLAGS   = -D_DEBUG -DDEBUG -g -ggdb3
 C_GCC4_FLAGS    = -fvisibility=hidden
 CPP_GCC4_FLAGS  = -fvisibility-inlines-hidden
-CPP             = gcc-4.4
+CPP             = clang
 CPP_OSX         = clang
 
 LINK =
@@ -56,8 +56,8 @@ endif
 
 LINK += -m32 -lm -ldl
 
-CFLAGS += -DORPHEU_BUILD -DORPHEU_USE_VERSIONLIB -DPAWN_CELL_SIZE=32 -DJIT -DASM32 -DHAVE_STDINT_H -fno-strict-aliasing -m32 -Wall  -Werror -Wno-uninitialized -Wno-unused -Wno-switch
-CPPFLAGS += -Wno-invalid-offsetof -fno-exceptions -fno-rtti
+CFLAGS += -DORPHEU_BUILD -DORPHEU_USE_VERSIONLIB -DPAWN_CELL_SIZE=32 -DJIT -DASM32 -DHAVE_STDINT_H -fno-strict-aliasing -m32 -Wall -Werror -Wno-uninitialized -Wno-unused -Wno-switch
+CPPFLAGS += -Wno-invalid-offsetof -fno-exceptions -fno-rtti# -std=c++11
 
 BINARY = $(PROJECT)$(LIB_SUFFIX).$(LIB_EXT)
 
@@ -142,5 +142,3 @@ clean:
 	rm -rf $(BIN_DIR)/typeHandlerImplementations/*.o
 	rm -rf $(BIN_DIR)/jansson/*.o
 	rm -f $(BIN_DIR)/$(BINARY)
-
- 

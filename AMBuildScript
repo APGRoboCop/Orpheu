@@ -109,6 +109,7 @@ class OrpheuConfig(object):
       ]
       cfg.cxxflags += [
         '-Wno-invalid-offsetof',
+        #'-std=c++11',
       ]
 
       cfg.linkflags += ['-m32']
@@ -121,7 +122,10 @@ class OrpheuConfig(object):
         cfg.cxxflags += ['-fvisibility-inlines-hidden']
         if (have_gcc and cxx.minorVersion >= 7) or (have_clang and cxx.majorVersion >= 3):
           cfg.cxxflags += ['-Wno-delete-non-virtual-dtor']
-
+        if (have_gcc and cxx.majorVersion >= 8):
+          cfg.cxxflags += ['-Wno-stringop-truncation']
+        if (have_gcc and cxx.majorVersion >= 9):
+          cfg.cxxflags += ['-Wno-address-of-packed-member']
       if have_gcc:
         cfg.cflags += ['-Wno-parentheses']
       elif have_clang:
