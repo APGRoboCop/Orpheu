@@ -95,11 +95,11 @@ static int dump_string(const char *str, size_t len, json_dump_callback_t dump, v
                 break;
 
             /* slash */
-            if((flags & JSON_ESCAPE_SLASH) && codepoint == '/')
+            if(flags & JSON_ESCAPE_SLASH && codepoint == '/')
                 break;
 
             /* non-ASCII */
-            if((flags & JSON_ENSURE_ASCII) && codepoint > 0x7F)
+            if(flags & JSON_ENSURE_ASCII && codepoint > 0x7F)
                 break;
 
             pos = end;
@@ -140,8 +140,8 @@ static int dump_string(const char *str, size_t len, json_dump_callback_t dump, v
                     int32_t first, last;
 
                     codepoint -= 0x10000;
-                    first = 0xD800 | ((codepoint & 0xffc00) >> 10);
-                    last = 0xDC00 | (codepoint & 0x003ff);
+                    first = 0xD800 | (codepoint & 0xffc00) >> 10;
+                    last = 0xDC00 | codepoint & 0x003ff;
 
                     sprintf(seq, "\\u%04X\\u%04X", first, last);
                     length = 12;

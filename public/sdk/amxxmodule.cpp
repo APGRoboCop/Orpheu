@@ -2089,7 +2089,7 @@ C_DLLEXPORT int GetEntityAPI2(DLL_FUNCTIONS *pFunctionTable, int *interfaceVersi
 	LOG_DEVELOPER(PLID, "called: GetEntityAPI2; version=%d", *interfaceVersion);
 	if(!pFunctionTable) {
 		LOG_ERROR(PLID, "GetEntityAPI2 called with null pFunctionTable");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != INTERFACE_VERSION) {
 		LOG_ERROR(PLID, 
@@ -2098,11 +2098,11 @@ C_DLLEXPORT int GetEntityAPI2(DLL_FUNCTIONS *pFunctionTable, int *interfaceVersi
 		//! Tell engine what version we had, so it can figure out who is 
 		//! out of date.
 		*interfaceVersion = INTERFACE_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy(pFunctionTable, &g_EntityAPI_Table, sizeof(DLL_FUNCTIONS));
 	g_pFunctionTable=pFunctionTable;
-	return(TRUE);
+	return TRUE;
 }
 
 C_DLLEXPORT int GetEntityAPI2_Post(DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion)
@@ -2110,17 +2110,17 @@ C_DLLEXPORT int GetEntityAPI2_Post(DLL_FUNCTIONS *pFunctionTable, int *interface
 	LOG_DEVELOPER(PLID, "called: GetEntityAPI2_Post; version=%d", *interfaceVersion);
 	if(!pFunctionTable) {
 		LOG_ERROR(PLID, "GetEntityAPI2_Post called with null pFunctionTable");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != INTERFACE_VERSION) {
 		LOG_ERROR(PLID, "GetEntityAPI2_Post version mismatch; requested=%d ours=%d", *interfaceVersion, INTERFACE_VERSION);
 		//! Tell engine what version we had, so it can figure out who is out of date.
 		*interfaceVersion = INTERFACE_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy( pFunctionTable, &g_EntityAPI_Post_Table, sizeof( DLL_FUNCTIONS ) );
 	g_pFunctionTable_Post=pFunctionTable;
-	return(TRUE);
+	return TRUE;
 }
 
 C_DLLEXPORT int GetEngineFunctions(enginefuncs_t *pengfuncsFromEngine, int *interfaceVersion)
@@ -2130,7 +2130,7 @@ C_DLLEXPORT int GetEngineFunctions(enginefuncs_t *pengfuncsFromEngine, int *inte
 	if(!pengfuncsFromEngine) {
 		LOG_ERROR(PLID, 
 				"GetEngineFunctions called with null pengfuncsFromEngine");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != ENGINE_INTERFACE_VERSION) {
 		LOG_ERROR(PLID, 
@@ -2139,7 +2139,7 @@ C_DLLEXPORT int GetEngineFunctions(enginefuncs_t *pengfuncsFromEngine, int *inte
 		// Tell metamod what version we had, so it can figure out who is 
 		// out of date.
 		*interfaceVersion = ENGINE_INTERFACE_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy(pengfuncsFromEngine, &g_EngineFuncs_Table, sizeof(enginefuncs_t));
 	g_pengfuncsTable=pengfuncsFromEngine;
@@ -2151,13 +2151,13 @@ C_DLLEXPORT int GetEngineFunctions_Post(enginefuncs_t *pengfuncsFromEngine, int 
 	LOG_DEVELOPER(PLID, "called: GetEngineFunctions_Post; version=%d", *interfaceVersion);
 	if(!pengfuncsFromEngine) {
 		LOG_ERROR(PLID, "GetEngineFunctions_Post called with null pengfuncsFromEngine");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != ENGINE_INTERFACE_VERSION) {
 		LOG_ERROR(PLID, "GetEngineFunctions_Post version mismatch; requested=%d ours=%d", *interfaceVersion, ENGINE_INTERFACE_VERSION);
 		// Tell metamod what version we had, so it can figure out who is out of date.
 		*interfaceVersion = ENGINE_INTERFACE_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy(pengfuncsFromEngine, &g_EngineFuncs_Post_Table, sizeof(enginefuncs_t));
 	g_pengfuncsTable_Post=pengfuncsFromEngine;
@@ -2173,7 +2173,7 @@ C_DLLEXPORT int GetNewDLLFunctions(NEW_DLL_FUNCTIONS *pNewFunctionTable,
 	if(!pNewFunctionTable) {
 		LOG_ERROR(PLID, 
 				"GetNewDLLFunctions called with null pNewFunctionTable");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != NEW_DLL_FUNCTIONS_VERSION) {
 		LOG_ERROR(PLID, 
@@ -2182,7 +2182,7 @@ C_DLLEXPORT int GetNewDLLFunctions(NEW_DLL_FUNCTIONS *pNewFunctionTable,
 		//! Tell engine what version we had, so it can figure out who is 
 		//! out of date.
 		*interfaceVersion = NEW_DLL_FUNCTIONS_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy(pNewFunctionTable, &g_NewFuncs_Table, sizeof(NEW_DLL_FUNCTIONS));
 	g_pNewFunctionsTable=pNewFunctionTable;
@@ -2194,13 +2194,13 @@ C_DLLEXPORT int GetNewDLLFunctions_Post( NEW_DLL_FUNCTIONS *pNewFunctionTable, i
 	LOG_DEVELOPER(PLID, "called: GetNewDLLFunctions_Post; version=%d", *interfaceVersion);
 	if(!pNewFunctionTable) {
 		LOG_ERROR(PLID, "GetNewDLLFunctions_Post called with null pNewFunctionTable");
-		return(FALSE);
+		return FALSE;
 	}
 	else if(*interfaceVersion != NEW_DLL_FUNCTIONS_VERSION) {
 		LOG_ERROR(PLID, "GetNewDLLFunctions_Post version mismatch; requested=%d ours=%d", *interfaceVersion, NEW_DLL_FUNCTIONS_VERSION);
 		//! Tell engine what version we had, so it can figure out who is out of date.
 		*interfaceVersion = NEW_DLL_FUNCTIONS_VERSION;
-		return(FALSE);
+		return FALSE;
 	}
 	memcpy(pNewFunctionTable, &g_NewFuncs_Post_Table, sizeof(NEW_DLL_FUNCTIONS));
 	g_pNewFunctionsTable_Post=pNewFunctionTable;
@@ -2229,7 +2229,7 @@ C_DLLEXPORT int Meta_Query(const char *ifvers, plugin_info_t **pPlugInfo, mutil_
 	// Check for valid pMetaUtilFuncs before we continue.
 	if(!pMetaUtilFuncs) {
 		UTIL_LogPrintf("[%s] ERROR: Meta_Query called with null pMetaUtilFuncs\n", Plugin_info.logtag);
-		return(FALSE);
+		return FALSE;
 	}
 
 	gpMetaUtilFuncs = pMetaUtilFuncs;
@@ -2245,15 +2245,15 @@ C_DLLEXPORT int Meta_Query(const char *ifvers, plugin_info_t **pPlugInfo, mutil_
 		// metamod).
 		sscanf(ifvers, "%d:%d", &mmajor, &mminor);
 		sscanf(META_INTERFACE_VERSION, "%d:%d", &pmajor, &pminor);
-		if(pmajor > mmajor || (pmajor==mmajor && pminor > mminor)) {
+		if(pmajor > mmajor || pmajor==mmajor && pminor > mminor) {
 			LOG_ERROR(PLID, "metamod version is too old for this module; update metamod");
-			return(FALSE);
+			return FALSE;
 		}
 		// If plugin has older major interface version, it's incompatible
 		// (update plugin).
 		else if(pmajor < mmajor) {
 			LOG_ERROR(PLID, "metamod version is incompatible with this module; please find a newer version of this module");
-			return(FALSE);
+			return FALSE;
 		}
 		// Minor interface is older, but this is guaranteed to be backwards
 		// compatible, so we warn, but we still accept it.
@@ -2275,16 +2275,16 @@ C_DLLEXPORT int Meta_Attach(PLUG_LOADTIME now, META_FUNCTIONS *pFunctionTable, m
 {
 	if(now > Plugin_info.loadable) {
 		LOG_ERROR(PLID, "Can't load module right now");
-		return(FALSE);
+		return FALSE;
 	}
 	if(!pMGlobals) {
 		LOG_ERROR(PLID, "Meta_Attach called with null pMGlobals");
-		return(FALSE);
+		return FALSE;
 	}
 	gpMetaGlobals=pMGlobals;
 	if(!pFunctionTable) {
 		LOG_ERROR(PLID, "Meta_Attach called with null pFunctionTable");
-		return(FALSE);
+		return FALSE;
 	}
 
 	memcpy(pFunctionTable, &g_MetaFunctions_Table, sizeof(META_FUNCTIONS));
@@ -2303,7 +2303,7 @@ C_DLLEXPORT int Meta_Detach(PLUG_LOADTIME now, PL_UNLOAD_REASON reason)
 {
 	if(now > Plugin_info.unloadable && reason != PNL_CMD_FORCED) {
 		LOG_ERROR(PLID, "Can't unload plugin right now");
-		return(FALSE);
+		return FALSE;
 	}
 
 #ifdef FN_META_DETACH
@@ -2524,7 +2524,7 @@ C_DLLEXPORT int AMXX_Query(int *interfaceVersion, amxx_module_info_s *moduleInfo
 }
 
 // request function
-#define REQFUNC(name, fptr, type) if ((fptr = (type)reqFnptrFunc(name)) == 0) return AMXX_FUNC_NOT_PRESENT
+#define REQFUNC(name, fptr, type) if (((fptr) = (type)reqFnptrFunc(name)) == 0) return AMXX_FUNC_NOT_PRESENT
 // request optional function
 #define REQFUNC_OPT(name, fptr, type) fptr = (type)reqFnptrFunc(name)
 
@@ -2685,7 +2685,7 @@ void MF_Log(const char *fmt, ...)
 	char msg[3072];
 	va_list arglst;
 	va_start(arglst, fmt);
-	vsnprintf(msg, sizeof(msg) - 1, fmt, arglst);
+	vsnprintf(msg, sizeof msg - 1, fmt, arglst);
 	va_end(arglst);
 
 	g_fn_Log("[%s] %s", MODULE_LOGTAG, msg);
@@ -2696,7 +2696,7 @@ void MF_LogError(AMX *amx, int err, const char *fmt, ...)
 	char msg[3072];
 	va_list arglst;
 	va_start(arglst, fmt);
-	vsnprintf(msg, sizeof(msg) - 1, fmt, arglst);
+	vsnprintf(msg, sizeof msg - 1, fmt, arglst);
 	va_end(arglst);
 
 	g_fn_LogErrorFunc(amx, err, "[%s] %s", MODULE_LOGTAG, msg);
@@ -3016,7 +3016,7 @@ char* UTIL_VarArgs( char *format, ... )
 	static char		string[1024];
 	
 	va_start (argptr, format);
-	vsnprintf (string, sizeof(string), format, argptr);
+	vsnprintf (string, sizeof string, format, argptr);
 	va_end (argptr);
 
 	return string;
@@ -3033,7 +3033,7 @@ void UTIL_LogPrintf( const char *fmt, ... )
 	static char		string[1024];
 	
 	va_start ( argptr, fmt );
-	vsnprintf ( string, sizeof(string), fmt, argptr );
+	vsnprintf ( string, sizeof string, fmt, argptr );
 	va_end   ( argptr );
 
 	// Print to server console
@@ -3125,7 +3125,7 @@ size_t UTIL_Format(char *buffer, size_t maxlength, const char *fmt, ...)
 	if (len >= maxlength)
 	{
 		buffer[maxlength - 1] = '\0';
-		return (maxlength - 1);
+		return maxlength - 1;
 	}
 	else
 	{

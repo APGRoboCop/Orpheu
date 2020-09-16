@@ -16,5 +16,5 @@ void* CMBaseMonsterHandler::convertFromAmx(AMX* amx, cell param)
 void CMBaseMonsterHandler::convertToAmx(cell& value, long standardReturn, ConvertMode convertMode)
 {
 	CBaseEntity* entity = (CBaseEntity*)standardReturn;
-	value = (entity) ? entity->entindex() : 0;
+	value = entity ? entity->entindex() : 0;
 }

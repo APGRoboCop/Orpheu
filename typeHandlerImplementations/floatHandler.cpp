@@ -5,7 +5,7 @@ void* FloatHandler::convertFromAmx(AMX* amx, cell param)
 {
 	cell* value = allocateMemory<cell>();
 	*value = *MF_GetAmxAddr(amx, param);
-	return (void*)(*value);
+	return (void*)*value;
 }
 
 void FloatHandler::convertToAmx(cell& value, long standardReturn, ConvertMode convertMode)
@@ -43,10 +43,10 @@ void FloatHandler::convertToAmx(cell& value, long standardReturn, ConvertMode co
 
 void FloatHandler::convertFromAmxToStructure(AMX* amx, cell param, void* address)
 {
-	*(reinterpret_cast<float*>(address)) = amx_ctof((long)convertFromAmx(amx, param));
+	*reinterpret_cast<float*>(address) = amx_ctof((long)convertFromAmx(amx, param));
 }
 
 cell FloatHandler::convertToAmxFromStructure(AMX* amx, cell* params, void* address)
 {
-	return amx_ftoc(*((float*)(address)));
+	return amx_ftoc(*(float*)address);
 }

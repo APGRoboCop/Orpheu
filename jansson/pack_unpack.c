@@ -378,7 +378,7 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
 
         if(strict != 0) {
             set_error(s, "<format>", "Expected '}' after '%c', got '%c'",
-                      (strict == 1 ? '!' : '*'), token(s));
+                      strict == 1 ? '!' : '*', token(s));
             goto out;
         }
 
@@ -388,7 +388,7 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
         }
 
         if(token(s) == '!' || token(s) == '*') {
-            strict = (token(s) == '!' ? 1 : -1);
+            strict = token(s) == '!' ? 1 : -1;
             next_token(s);
             continue;
         }
@@ -430,7 +430,7 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
         next_token(s);
     }
 
-    if(strict == 0 && (s->flags & JSON_STRICT))
+    if(strict == 0 && s->flags & JSON_STRICT)
         strict = 1;
 
     if(root && strict == 1) {
@@ -478,7 +478,7 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
 
         if(strict != 0) {
             set_error(s, "<format>", "Expected ']' after '%c', got '%c'",
-                      (strict == 1 ? '!' : '*'),
+                      strict == 1 ? '!' : '*',
                       token(s));
             return -1;
         }
@@ -489,7 +489,7 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
         }
 
         if(token(s) == '!' || token(s) == '*') {
-            strict = (token(s) == '!' ? 1 : -1);
+            strict = token(s) == '!' ? 1 : -1;
             next_token(s);
             continue;
         }
@@ -520,7 +520,7 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
         i++;
     }
 
-    if(strict == 0 && (s->flags & JSON_STRICT))
+    if(strict == 0 && s->flags & JSON_STRICT)
         strict = 1;
 
     if(root && strict == 1 && i != json_array_size(root)) {

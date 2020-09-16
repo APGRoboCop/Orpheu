@@ -64,7 +64,7 @@ long HookMethod(long object, long argument, ...)
 #endif
 
 unsigned char Function::patch[] ={ 0xE9, 0x00, 0x00, 0x00, 0x00 };
-int Function::patchSize = sizeof(patch);
+int Function::patchSize = sizeof patch;
 unsigned short int* Function::patchFunctionIDAddress = (unsigned short int*) &patch[2];
 long* Function::patchFunctionJumpAddress = (long*)&patch[1];
 
@@ -88,7 +88,7 @@ Function::Function(void* address, TypeHandler** argumentsHandlers, unsigned int 
 	espDislocationCallForward = espDislocation + sizeof(long);
 
 #if defined WIN32
-	passObject = (isMethod) ? &Function::passObjectMethod : &Function::passObjectNonMethod;
+	passObject = isMethod ? &Function::passObjectMethod : &Function::passObjectNonMethod;
 
 	if (isMethod)
 	{
@@ -157,18 +157,18 @@ void Function::preparePatch()
 
 	memcpy((void*)preJump, PreJumpBase, PreJumpSize);
 
-	*((long*)(&preJump[PreJumpIDAddressPosition])) = (long)&ID;
-	*((unsigned short int*)(&preJump[PreJumpIDValuePosition])) = id;
+	*(long*)&preJump[PreJumpIDAddressPosition] = (long)&ID;
+	*(unsigned short int*)&preJump[PreJumpIDValuePosition] = id;
 
 #if defined WIN32
 	if (isMethod)
-		*((long*)(&preJump[PreJumpIDHookAddressPosition])) = (char*)HooksMethod[argumentsCount - 1] - (char*)preJump - PreJumpSize;
+		*(long*)&preJump[PreJumpIDHookAddressPosition] = (char*)HooksMethod[argumentsCount - 1] - (char*)preJump - PreJumpSize;
 	else
 #endif
-		*((long*)(&preJump[PreJumpIDHookAddressPosition])) = (char*)&Hook - (char*)preJump - PreJumpSize;
+		*(long*)&preJump[PreJumpIDHookAddressPosition] = (char*)&Hook - (char*)preJump - PreJumpSize;
 
 	patchedBytes[0] = 0xE9;
-	*((long*)(&patchedBytes[1])) = (char*)preJump - (char*)address - 5;
+	*(long*)&patchedBytes[1] = (char*)preJump - (char*)address - 5;
 
 	memcpy((void*)originalBytes, address, patchSize);
 }
@@ -196,7 +196,7 @@ void Function::undoPatch()
 		if (Memory::ChangeMemoryProtection(address, patchSize, PAGE_EXECUTE_READWRITE))
 		{
 			isPatched = false;
-			memcpy(address, (void*)originalBytes, this->patchSize);
+			memcpy(address, (void*)originalBytes, patchSize);
 		}
 		else
 		{
@@ -235,7 +235,7 @@ cell Function::call(AMX* amx, cell* params)
 
 	void* address = this->address;
 
-	(this->*(passObject))();
+	(this->*passObject)();
 
 	_asm
 	{
@@ -299,7 +299,7 @@ long Function::callOriginal()
 
 	void* address = this->address;
 
-	(this->*(passObject))();
+	(this->*passObject)();
 
 	_asm
 	{
@@ -439,7 +439,7 @@ void Function::removeAllHooks()
 {
 	for (int i=0; i <= 1; ++i)
 	{
-		for (Function::HooksDataMap::iterator iter = hooks[i]->iter(); !iter.empty(); iter.next())
+		for (HooksDataMap::iterator iter = hooks[i]->iter(); !iter.empty(); iter.next())
 		{
 			MF_UnregisterSPForward(iter->value);
 
@@ -452,7 +452,7 @@ void Function::removeAllHooks()
 }
 void Function::removeHook(OrpheuHookPhase phase, long functionHookPhaseID)
 {
-	Function::HooksDataMap::Result r = hooks[phase]->find(functionHookPhaseID);
+	HooksDataMap::Result r = hooks[phase]->find(functionHookPhaseID);
 
 	if (r.found())
 	{

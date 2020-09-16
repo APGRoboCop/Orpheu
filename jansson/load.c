@@ -22,10 +22,10 @@
 #include "utf.h"
 
 #define STREAM_STATE_OK        0
-#define STREAM_STATE_EOF      -1
-#define STREAM_STATE_ERROR    -2
+#define STREAM_STATE_EOF      (-1)
+#define STREAM_STATE_ERROR    (-2)
 
-#define TOKEN_INVALID         -1
+#define TOKEN_INVALID         (-1)
 #define TOKEN_EOF              0
 #define TOKEN_STRING         256
 #define TOKEN_INTEGER        257
@@ -412,7 +412,7 @@ static void lex_scan_string(lex_t *lex, json_error_t *error)
                         if(0xDC00 <= value2 && value2 <= 0xDFFF) {
                             /* valid second surrogate */
                             value =
-                                ((value - 0xD800) << 10) +
+                                (value - 0xD800 << 10) +
                                 (value2 - 0xDC00) +
                                 0x10000;
                         }
@@ -456,7 +456,7 @@ static void lex_scan_string(lex_t *lex, json_error_t *error)
             }
         }
         else
-            *(t++) = *(p++);
+            *t++ = *p++;
     }
     *t = '\0';
     lex->value.string.len = t - lex->value.string.val;
@@ -1095,7 +1095,7 @@ json_t *json_load_callback(json_load_callback_t callback, void *arg, size_t flag
 
     callback_data_t stream_data;
 
-    memset(&stream_data, 0, sizeof(stream_data));
+    memset(&stream_data, 0, sizeof stream_data);
     stream_data.callback = callback;
     stream_data.arg = arg;
 

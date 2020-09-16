@@ -120,8 +120,8 @@ namespace Global
 		new StructHandler((new cvarStructData())->getStructInfo())
 	};
 
-	unsigned int TypesCount = sizeof(Types) / sizeof(TypeHandler*);
-	unsigned int StructuresCount = sizeof(Structures) / sizeof(StructHandler*);
+	unsigned int TypesCount = sizeof Types / sizeof(TypeHandler*);
+	unsigned int StructuresCount = sizeof Structures / sizeof(StructHandler*);
 
 	ke::AString Modname;
 

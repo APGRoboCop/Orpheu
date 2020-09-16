@@ -15,9 +15,9 @@ namespace Hooker
 			LibrariesManager::addLibrary(libraryName, (void*)cvar);
 		}
 
-		Hooker::hookerCvarRegister->undoPatch();
+		hookerCvarRegister->undoPatch();
 		g_engfuncs.pfnCVarRegister(cvar);
-		Hooker::hookerCvarRegister->doPatch();
+		hookerCvarRegister->doPatch();
 	}
 
 	HookerCvarRegister::HookerCvarRegister()
@@ -29,17 +29,17 @@ namespace Hooker
 
 	void HookerCvarRegister::createPatch()
 	{
-		memcpy((void*)originalBytes, (void*)g_engfuncs.pfnCVarRegister, this->patchSize);
+		memcpy((void*)originalBytes, (void*)g_engfuncs.pfnCVarRegister, patchSize);
 
 		patchedBytes[0] = 0xE9;
-		*((long*)(&patchedBytes[1])) = (char*)HookerCvarRegister::hooker - (char*)g_engfuncs.pfnCVarRegister - 5;
+		*(long*)&patchedBytes[1] = (char*)hooker - (char*)g_engfuncs.pfnCVarRegister - 5;
 	}
 
 	void HookerCvarRegister::doPatch()
 	{
-		if (Memory::ChangeMemoryProtection((void*)g_engfuncs.pfnCVarRegister, this->patchSize, PAGE_EXECUTE_READWRITE))
+		if (Memory::ChangeMemoryProtection((void*)g_engfuncs.pfnCVarRegister, patchSize, PAGE_EXECUTE_READWRITE))
 		{
-			memcpy((void*)g_engfuncs.pfnCVarRegister, (void*)patchedBytes, this->patchSize);
+			memcpy((void*)g_engfuncs.pfnCVarRegister, (void*)patchedBytes, patchSize);
 		}
 		else
 		{
@@ -49,6 +49,6 @@ namespace Hooker
 
 	void HookerCvarRegister::undoPatch()
 	{
-		memcpy((void*)g_engfuncs.pfnCVarRegister, (void*)originalBytes, this->patchSize);
+		memcpy((void*)g_engfuncs.pfnCVarRegister, (void*)originalBytes, patchSize);
 	}
 }

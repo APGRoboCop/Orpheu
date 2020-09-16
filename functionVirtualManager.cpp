@@ -39,7 +39,7 @@ unsigned short int FunctionVirtualManager::makeFunction(FunctionStructure* funct
 	{
 		long offset = class_->getVirtualTableOffset();
 
-		void **vtable = *((void***)(((char*)object) + offset));
+		void **vtable = *(void***)((char*)object + offset);
 		int **ivtable = (int**)vtable;
 
 		void* address = (void*)ivtable[functionStructure->virtualTableIndex];

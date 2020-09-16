@@ -44,17 +44,17 @@ void CharPtrHandler::convertFromAmxToStructure(AMX* amx, cell param, void* addre
 	char* allocString = allocateMemory<char>(len + 1);
 	strcpy(allocString, str);
 
-	*((const char **)address) = allocString;
+	*(const char **)address = allocString;
 }
 
 cell CharPtrHandler::convertToAmxFromStructure(AMX* amx, cell* params, void* address)
 {
-	return g_fn_SetAmxString(amx, params[0], *((const char **)address), *MF_GetAmxAddr(amx, params[1]));
+	return g_fn_SetAmxString(amx, params[0], *(const char **)address, *MF_GetAmxAddr(amx, params[1]));
 }
 
 bool CharPtrHandler::compareTo(AMX* amx, cell* params, void* address)
 {
 	char *str = g_fn_GetAmxString(amx, params[0], 0, NULL);
-	return !strcmp(str, *((char**)address));
+	return !strcmp(str, *(char**)address);
 }
 

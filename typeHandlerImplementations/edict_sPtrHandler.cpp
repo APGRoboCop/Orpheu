@@ -6,7 +6,7 @@ void* Edict_sPtrHandler::convertFromAmx(AMX* amx, cell param)
 	cell* value = allocateMemory<cell>();
 	*value = *MF_GetAmxAddr(amx, param);
 
-	return (*value) ? (void*)INDEXENT(*value) : NULL;
+	return *value ? (void*)INDEXENT(*value) : NULL;
 }
 
 void Edict_sPtrHandler::convertToAmx(cell& value, long standardReturn, ConvertMode convertMode)

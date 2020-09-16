@@ -79,13 +79,13 @@ protected:
 
 	template <class T> void convertFromAmxToStructureStandard(AMX* amx, cell param, void* address)
 	{
-		*(reinterpret_cast<T*>(address)) = (T)(long)convertFromAmx(amx, param);
+		*reinterpret_cast<T*>(address) = (T)(long)convertFromAmx(amx, param);
 	}
 
 	template <class T> cell convertToAmxFromStructureStandard(AMX* amx, cell* params, void* address)
 	{
 		cell value;
-		this->convertToAmx(value, *((T*)(address)));
+		this->convertToAmx(value, *(T*)address);
 		return value;
 	}
 

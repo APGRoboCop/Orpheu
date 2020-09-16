@@ -231,7 +231,7 @@ namespace LibrariesManager
 			{
 				if (compareSignature((unsigned char *)libraryInfo->baseAddress + i, signature, signatureData, length))
 				{
-					return (void*)(((unsigned char*)libraryInfo->baseAddress) + i);
+					return (void*)((unsigned char*)libraryInfo->baseAddress + i);
 				}
 			}
 		}
@@ -249,7 +249,7 @@ namespace LibrariesManager
 			{
 				if (compareSignature((unsigned char *)libraryInfo->baseAddress + i, signature, signatureData, length))
 				{
-					return (void*)(((unsigned char*)libraryInfo->baseAddress) + i);
+					return (void*)((unsigned char*)libraryInfo->baseAddress + i);
 				}
 			}
 		}
@@ -262,7 +262,7 @@ namespace LibrariesManager
 
 		if (LibraryNameToLibraryInfo->retrieve(libraryName, &libraryInfo))
 		{
-			return (address >= (long)libraryInfo->baseAddress) && (address <= ((long)libraryInfo->baseAddress + libraryInfo->length));
+			return address >= (long)libraryInfo->baseAddress && address <= (long)libraryInfo->baseAddress + libraryInfo->length;
 		}
 
 		return false;
@@ -284,7 +284,7 @@ namespace LibrariesManager
 
 		if (LibraryNameToLibraryInfo->retrieve(libraryName, &libraryInfo))
 		{
-			if ((offset >= 0) && (offset <= (libraryInfo->length)))
+			if (offset >= 0 && offset <= libraryInfo->length)
 			{
 				return (long)libraryInfo->baseAddress + offset;
 			}

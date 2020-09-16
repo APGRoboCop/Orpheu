@@ -14,7 +14,7 @@
 #include "strbuffer.h"
 
 #define container_of(ptr_, type_, member_)  \
-    ((type_ *)((char *)ptr_ - offsetof(type_, member_)))
+    ((type_ *)((char *)(ptr_) - offsetof(type_, member_)))
 
 /* On some platforms, max() may already be defined */
 #ifndef max
@@ -88,7 +88,7 @@ void* jsonp_malloc(size_t size);
 void jsonp_free(void *ptr);
 char *jsonp_strndup(const char *str, size_t length);
 char *jsonp_strdup(const char *str);
-char *jsonp_strndup(const char *str, size_t len);
+//char *jsonp_strndup(const char *str, size_t len);
 
 /* Windows compatibility */
 #ifdef _WIN32
